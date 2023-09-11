@@ -3,14 +3,12 @@ class Solution
 public:
     int maxProfit(vector<int>& prices)
     {
-        int n=prices.size(), i, max_val=0, max_diff=0;
-        vector<int> rightMax(n);
+        int n=prices.size(), i, rightMax=0, max_diff=0;
 
         for (i=n-2; i>=0; i--)
         {
-            max_val=max(max_val, prices[i+1]);
-            rightMax[i]=max_val;
-            max_diff=max(max_diff, rightMax[i]-prices[i]);
+            rightMax=max(rightMax, prices[i+1]);
+            max_diff=max(max_diff, rightMax-prices[i]);
         }
         return max_diff;
 
