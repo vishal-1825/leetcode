@@ -10,6 +10,7 @@
  */
 class Solution {
 public:
+/*
     ListNode* partition(ListNode* head, int x)
     {
         if (!head || head->next==NULL) return head;
@@ -77,5 +78,37 @@ public:
         temp->next=NULL;
 
         return head;
+    }
+*/
+    ListNode* partition(ListNode* head, int x)
+    {
+        ListNode *small_head = new ListNode(-101);
+        ListNode *large_head = new ListNode(-101);
+        ListNode *small=small_head, *large=large_head;
+
+        while (head)
+        {
+            if (head->val<x)
+            {
+                small->next=head;
+                small=small->next;
+                head=head->next;
+                small->next=NULL;
+            }
+            else
+            {
+                large->next=head;
+                large=large->next;
+                head=head->next;
+                large->next=NULL;
+            }
+        }
+
+        if (small_head->next!=NULL)
+        {
+            small->next=large_head->next;
+            return small_head->next;
+        }
+        else return large_head->next;
     }
 };
