@@ -11,8 +11,8 @@ public:
             int c=0;
             for (int j=0; j<nums.size(); j++)
             {
-                if (nums[j] & 1) c++;
-                nums[j]>>=1;
+                if ((nums[j]>>i) & 1)
+                    c++;
             }
             if (c%k) ans+=(1<<i);
         }
