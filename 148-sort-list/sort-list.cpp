@@ -10,6 +10,7 @@
  */
 class Solution {
 public:
+/*
     ListNode* sortList(ListNode* head)
     {
         if (!head || head->next==NULL) return head;
@@ -30,5 +31,47 @@ public:
             head->next=nxt;
             return newHead;
         }
+    }
+*/
+    ListNode* sortList(ListNode* head)
+    {
+        if (!head || !head->next) return head;
+
+        ListNode *slow=head, *fast=head->next->next;
+        while (fast && fast->next)
+        {
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        ListNode *right=sortList(slow->next);
+        slow->next=NULL;
+        ListNode *left=sortList(head);
+
+
+        if (!left) return right;
+        if (!right) return left;
+        
+        ListNode *newHead = new ListNode(0);
+        ListNode *temp=newHead;
+        while (left && right)
+        {
+            if (left->val<=right->val)
+            {
+                temp->next=left;
+                left=left->next;
+            }
+            else
+            {
+                temp->next=right;
+                right=right->next;
+            }
+            temp=temp->next;
+        }
+        if (left) temp->next=left;
+        if (right) temp->next=right;
+        
+        head=newHead->next;
+        delete newHead;
+        return head;
     }
 };
