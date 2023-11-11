@@ -1,5 +1,7 @@
 class Solution {
 public: 
+    // Couldn't implement, try again
+    // Cycle detection
     bool isCycle(int node, vector<bool>& visited, vector<bool>& dfsvisited, vector<vector<int>>& adj)
     {
         visited[node]=true;
