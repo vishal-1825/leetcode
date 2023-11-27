@@ -26,22 +26,25 @@ public:
     {
         int sign=1;
         vector<vector<ll>> dp(nums.size()+1, vector<ll>(2, -1));
-        ll ans=maxSum(nums, 0, sign, dp);
+        ll ans=max(maxSum(nums, 0, sign, dp);
         return ans;
     }
     */
     long long maxAlternatingSum(vector<int>& nums)
     {
         int n=nums.size();
-        vector<vector<ll>> dp(n+1, vector<ll>(2, 0));
-        dp[n][0]=0;
-        dp[n][1]=0;
+        // vector<vector<ll>> dp(n+1, vector<ll>(2, 0));
+        ll d00=0, d01=0, d10=0, d11=0;
         for (int i=n-1; i>=0; i--)
         {
-            dp[i][1]=max(nums[i]+dp[i+1][0], dp[i+1][1]);
-            dp[i][0]=max(-nums[i]+dp[i+1][1], dp[i+1][0]);
+            d01=max(nums[i]+d10, d11);
+            d00=max(-nums[i]+d11, d10);
+            d11=d01;
+            d10=d00;
+            // dp[i][1]=max(nums[i]+dp[i+1][0], dp[i+1][1]);
+            // dp[i][0]=max(-nums[i]+dp[i+1][1], dp[i+1][0]);
         }
-
-        return max(dp[0][0], dp[0][1]);
+        return max(d00, d01);
+        // return max(dp[0][0], dp[0][1]);
     }
 };
