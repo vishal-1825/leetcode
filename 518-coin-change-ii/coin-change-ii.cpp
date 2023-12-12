@@ -3,19 +3,23 @@ public:
     int change(int amount, vector<int>& coins)
     {
         int ans=0;
-        vector<vector<int>> dp(amount+1, vector<int>(coins.size()+1, 0));
-        for (int c=0; c<=coins.size(); c++)
-            dp[0][c]=1;
+        // vector<vector<int>> dp(coins.size()+1, vector<int>(amount+1, 0));
+        vector<int> d1(amount+1, 0), d2(amount+1, 0);
+        d1[0]=1;
+        d2[0]=1;
+        // for (int c=0; c<=coins.size(); c++)
+        //     dp[c][0]=1;
         
         for (int c=coins.size()-1; c>=0; c--)
         {
             for (int a=1; a<=amount; a++)
             {
-                dp[a][c]=dp[a][c+1];
-                if (coins[c]<=a) dp[a][c]+=dp[a-coins[c]][c];
+                d1[a]=d2[a];
+                if (coins[c]<=a) d1[a]+=d1[a-coins[c]];
             }
+            d2=d1;
         }
-        return dp[amount][0];
+        return d1[amount];
     }
     // int change(int amount, vector<int>& coins, int i, vector<vector<int>>& dp)
     // {
