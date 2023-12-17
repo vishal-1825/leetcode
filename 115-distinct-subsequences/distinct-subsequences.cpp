@@ -15,18 +15,22 @@ public:
     long long int mod = 1e9+7;
     int numDistinct(string s, string t)
     {
-        vector<vector<ll>> dp(s.size()+1, vector<ll>(t.size()+1, 0));
+        // vector<vector<ll>> dp(s.size()+1, vector<ll>(t.size()+1, 0));
+        vector<ll> dp0(t.size()+1), dp1(t.size()+1);
+        dp0[t.size()]=1;
+        dp1[t.size()]=1;
         // return numSeq(s, t, 0, 0, dp);
-        for (int i=0; i<=s.size(); i++)
-            dp[i][t.size()]=1;
+        // for (int i=0; i<=s.size(); i++)
+        //     dp[i][t.size()]=1;
         for (int i=s.size()-1; i>=0; i--)
         {
             for (int j=t.size()-1; j>=0; j--)
             {
-                if (s[i]==t[j]) dp[i][j] = (dp[i+1][j+1] + dp[i+1][j]) % mod;
-                else dp[i][j] = (dp[i+1][j]) % mod;
+                if (s[i]==t[j]) dp0[j] = (dp1[j+1] + dp1[j]) % mod;
+                else dp0[j] = dp1[j];
             }
+            dp1 = dp0;
         }
-        return dp[0][0];
+        return dp0[0];
     }
 };
