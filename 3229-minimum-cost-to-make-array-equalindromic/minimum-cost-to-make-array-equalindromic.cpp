@@ -4,14 +4,13 @@ public:
     typedef long long ll;
     bool isPal(ll num)
     {
-        string forward="", backward="";
+        ll forw=num, rev=0;
         while (num)
         {
-            forward = char('0' + num % 10) + forward;
-            backward = backward + char('0' + num % 10);
+            rev = rev*10 + num%10;
             num/=10;
         }
-        return (forward==backward);
+        return (forw==rev);
     }
 
     long long minimumCost(vector<int>& nums)
@@ -19,7 +18,7 @@ public:
         sort(nums.begin(), nums.end());
 
         int n=nums.size();
-        ll median = ((n%2) ? nums[n/2] : (nums[n/2-1]+nums[n/2])/2);
+        ll median = ((n % 2) ? nums[n/2] : (nums[n/2-1] + nums[n/2]) / 2);
         ll leftCost=0, rightCost=0, leftPal=median, rightPal=median;
         
         while (!isPal(leftPal))
