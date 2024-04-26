@@ -43,28 +43,55 @@ public:
     //     return ans;
     // }
     // T: O(n^2), S: O(n^2)
+    // int minFallingPathSum(vector<vector<int>>& grid)
+    // {
+    //     int row=grid.size(), col=grid[0].size(), ans=INT_MAX;
+    //     vector<vector<int>> dp = grid;
+    //     for (int i=0; i<row; i++)
+    //     {
+    //         pair<int, int> smallestAbove = {INT_MAX, -1}, secondAbove = {INT_MAX, -1};
+    //         for (int j=0; i-1>=0 && j<col; j++)
+    //         {
+    //             if (dp[i-1][j]<smallestAbove.first)
+    //             {
+    //                 secondAbove=smallestAbove;
+    //                 smallestAbove={dp[i-1][j], j};
+    //             }
+    //             else if (dp[i-1][j]<secondAbove.first) secondAbove={dp[i-1][j], j};
+    //         }
+
+    //         for (int j=0; j<col; j++)
+    //         {
+    //             if (i>0 && smallestAbove.second==j) dp[i][j]+=secondAbove.first;
+    //             else if (i>0) dp[i][j]+=smallestAbove.first;
+    //             if (i==row-1) ans=min(ans, dp[i][j]);
+    //         }
+    //     }
+    //     return ans;
+    // }
+    // T: O(n^2), S: O(n)
     int minFallingPathSum(vector<vector<int>>& grid)
     {
         int row=grid.size(), col=grid[0].size(), ans=INT_MAX;
-        vector<vector<int>> dp = grid;
+        vector<int> dp = grid[0];
         for (int i=0; i<row; i++)
         {
             pair<int, int> smallestAbove = {INT_MAX, -1}, secondAbove = {INT_MAX, -1};
             for (int j=0; i-1>=0 && j<col; j++)
             {
-                if (dp[i-1][j]<smallestAbove.first)
+                if (dp[j]<smallestAbove.first)
                 {
                     secondAbove=smallestAbove;
-                    smallestAbove={dp[i-1][j], j};
+                    smallestAbove={dp[j], j};
                 }
-                else if (dp[i-1][j]<secondAbove.first) secondAbove={dp[i-1][j], j};
+                else if (dp[j]<secondAbove.first) secondAbove={dp[j], j};
             }
-
+            dp=grid[i];
             for (int j=0; j<col; j++)
             {
-                if (i>0 && smallestAbove.second==j) dp[i][j]+=secondAbove.first;
-                else if (i>0) dp[i][j]+=smallestAbove.first;
-                if (i==row-1) ans=min(ans, dp[i][j]);
+                if (i>0 && smallestAbove.second==j) dp[j]+=secondAbove.first;
+                else if (i>0) dp[j]+=smallestAbove.first;
+                if (i==row-1) ans=min(ans, dp[j]);
             }
         }
         return ans;
