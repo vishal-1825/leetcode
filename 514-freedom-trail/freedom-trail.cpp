@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int frs(string ring, string key, int ring_index, int key_index, vector<vector<int>>& indices, vector<vector<int>>& dp)
+    int frs(string ring, string key, int ring_index, int key_index, unordered_map<int, vector<int>>& indices, vector<vector<int>>& dp)
     {
         if (key_index==key.length()) return 0;
 
@@ -18,7 +18,7 @@ public:
     }
     int findRotateSteps(string ring, string key)
     {
-        vector<vector<int>> indices(26);
+        unordered_map<int, vector<int>> indices(26);
         for (int i=0; i<ring.length(); i++)
             indices[ring[i]-'a'].push_back(i);
         vector<vector<int>> dp(ring.length(), vector<int>(key.length(), -1));
