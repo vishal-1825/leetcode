@@ -10,42 +10,51 @@
  */
 class Solution {
 public:
+    // ListNode* removeNodes(ListNode* head)
+    // {
+    //     stack<ListNode*> st;
+    //     ListNode *temp = head;
+    //     while (temp!=NULL)
+    //     {
+    //         while (!st.empty() && temp->val > st.top()->val)
+    //             st.pop();
+    //         st.push(temp);
+    //         temp=temp->next;
+    //     }
+
+    //     stack<ListNode*> st1;
+    //     while (!st.empty())
+    //     {
+    //         st1.push(st.top());
+    //         st.pop();
+    //     }
+        
+    //     head=NULL;
+    //     temp=NULL;
+    //     while (!st1.empty())
+    //     {
+    //         if (head==NULL)
+    //         {
+    //             head=st1.top();
+    //             temp=st1.top();
+    //         }
+    //         else
+    //         {
+    //             temp->next=st1.top();
+    //             temp=temp->next;
+    //         }
+    //         temp->next=NULL;
+    //         st1.pop();
+    //     }
+    //     return head;
+    // }
     ListNode* removeNodes(ListNode* head)
     {
-        stack<ListNode*> st;
-        ListNode *temp = head;
-        while (temp!=NULL)
-        {
-            while (!st.empty() && temp->val > st.top()->val)
-                st.pop();
-            st.push(temp);
-            temp=temp->next;
-        }
+        if (!head) return head;
 
-        stack<ListNode*> st1;
-        while (!st.empty())
-        {
-            st1.push(st.top());
-            st.pop();
-        }
-        
-        head=NULL;
-        temp=NULL;
-        while (!st1.empty())
-        {
-            if (head==NULL)
-            {
-                head=st1.top();
-                temp=st1.top();
-            }
-            else
-            {
-                temp->next=st1.top();
-                temp=temp->next;
-            }
-            temp->next=NULL;
-            st1.pop();
-        }
+        ListNode *smallAns=removeNodes(head->next);
+        head->next=smallAns;
+        if (smallAns && head->val < smallAns->val) return smallAns;
         return head;
     }
 };
