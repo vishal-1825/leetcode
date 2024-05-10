@@ -21,7 +21,7 @@ public:
     vector<int> kthSmallestPrimeFraction(vector<int>& arr, int k)
     {
         int n=arr.size();
-        double left=0.0, right=n-1;
+        double left=0.0, right=1.0;
         while (left<=right)
         {
             double fraction=(left+right)/2.0, maxfraction=-1.0; // or mid
