@@ -25,7 +25,6 @@ public:
             prev=prev->next;
             cur=cur->next;
         }
-        sort(critical.begin(), critical.end());
 
         if (critical.size()<2) return {-1, -1};
         int c=critical.size();
