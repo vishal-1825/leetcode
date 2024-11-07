@@ -3,15 +3,15 @@ public:
     int largestCombination(vector<int>& candidates)
     {
         int ans=0;
-        vector<int> count(32, 0);
-        for (int c: candidates)
+        for (int i=0; i<=31; i++)
         {
-            for (int i=0; i<=31; i++)
+            int count=0;
+            for (int c: candidates)
             {
                 if ((c>>i) & 1)
-                    count[i]++;
-                ans=max(ans, count[i]);
+                    count++;
             }
+            ans=max(ans, count);
         }
         return ans;
     }
