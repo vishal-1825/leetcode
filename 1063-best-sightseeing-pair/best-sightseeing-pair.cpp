@@ -17,15 +17,13 @@ public:
         // int n=values.size(), leftMax=-1;
         // vector<int> dp(n, -1);
         // return maxScore(values, dp, n, leftMax, 0);
-        int n=values.size();
-        vector<int> dp(n, 0);
-        dp[0]=0;
-        int leftMax=values[0]+0;
+        int n=values.size(), leftMaxScore=0, leftMax=values[0]+0;
         for (int i=1; i<n; i++)
         {
-            dp[i]=max({dp[i], dp[i-1], values[i]-i+leftMax});
+            int score=max(leftMaxScore, values[i]-i+leftMax);
+            leftMaxScore=max(leftMaxScore, score);
             leftMax=max(leftMax, values[i]+i);
         }
-        return dp[n-1];
+        return leftMaxScore;
     }
 };
