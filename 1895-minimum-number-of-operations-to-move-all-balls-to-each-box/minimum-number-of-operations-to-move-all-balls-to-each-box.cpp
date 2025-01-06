@@ -2,43 +2,33 @@ class Solution {
 public:
     vector<int> minOperations(string boxes)
     {
-        queue<int> leftOnes, rightOnes;
         int n=boxes.length();
-        for (int i=1; i<n; i++)
+        int leftCount=0, rightCount=0, leftSum=0, rightSum=0;
+
+        for (int i=0; i<n; i++)
         {
             if (boxes[i]=='1')
-                rightOnes.push(i);
+            {
+                rightCount++;
+                rightSum+=i;
+            }
         }
 
         vector<int> ans(n);
         for (int i=0; i<n; i++)
         {
-            if (!rightOnes.empty() && rightOnes.front()==i) rightOnes.pop();
-            int leftSum=0, rightSum=0;
-            if (!leftOnes.empty())
+            if (boxes[i]=='1')
             {
-                int sz=leftOnes.size();
-                while (sz--)
-                {
-                    int leftIndex=leftOnes.front();
-                    leftOnes.pop();
-                    leftSum+=(i-leftIndex);
-                    leftOnes.push(leftIndex);
-                }
+                rightCount--;
+                rightSum-=i;
             }
-            if (!rightOnes.empty())
+            ans[i]+=(leftCount*i-leftSum);
+            ans[i]+=(rightSum-rightCount*i);
+            if (boxes[i]=='1')
             {
-                int sz=rightOnes.size();
-                while (sz--)
-                {
-                    int rightIndex=rightOnes.front();
-                    rightOnes.pop();
-                    rightSum+=(rightIndex-i);
-                    rightOnes.push(rightIndex);
-                }
+                leftCount++;
+                leftSum+=i;
             }
-            ans[i]=leftSum+rightSum;
-            if (boxes[i]=='1') leftOnes.push(i);
         }
         return ans;
     }
